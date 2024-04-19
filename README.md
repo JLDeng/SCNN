@@ -33,7 +33,7 @@ If you find this repo useful, please cite our paper.
 ## Contact
 If you have any questions or suggestions, feel free to contact:
 
-- Jinliang Deng (dengjinliang9588@gmail.com)
+- Jinliang Deng (jinliang.deng@student.uts.edu.au)
 
 or describe it in Issues.
 
