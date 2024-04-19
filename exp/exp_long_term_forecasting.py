@@ -140,44 +140,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                     f_dim = -1 if self.args.features == 'MS' else 0
                     outputs = outputs[:, -self.args.pred_len:, f_dim:]
                     batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
-                    if self.args.model == 'CARD':
-                        self.ratio = np.array([max(1/np.sqrt(i+1),0.0) for i in range(self.args.pred_len)])
-                        self.ratio = torch.tensor(self.ratio).unsqueeze(-1).to('cuda')
-                        outputs = outputs *self.ratio
-                        batch_y = batch_y *self.ratio
-                        loss = c(outputs, batch_y)
-
-                        use_h_loss = False
-                        h_level_range = [4,8,16,24,48,96]
-                        h_loss = None
-                        if use_h_loss:                            
-                            for h_level in h_level_range:
-                                batch,length,channel = outputs.shape
-                                # print(outputs.shape)
-                                h_outputs = outputs.transpose(-1,-2).reshape(batch,channel,-1,h_level)
-                                h_outputs = torch.mean(h_outputs,dim = -1,keepdims = True)
-                                h_batch_y = batch_y.transpose(-1,-2).reshape(batch,channel,-1,h_level)
-                                h_batch_y = torch.mean(h_batch_y,dim = -1,keepdims = True)
-                                h_ratio = self.ratio[:h_outputs.shape[-2],:]
-                                # print(h_outputs.shape,h_ratio.shape)
-                                h_ouputs_agg = torch.mean(h_outputs,dim = 1,keepdims = True)
-                                h_batch_y_agg = torch.mean(h_batch_y,dim = 1,keepdims = True)
-
-                                h_outputs = h_outputs*h_ratio
-                                h_batch_y = h_batch_y*h_ratio
-
-                                h_ouputs_agg *= h_ratio
-                                h_batch_y_agg *= h_ratio
-
-                                if h_loss is None:
-                                    h_loss  = c(h_outputs, h_batch_y)*np.sqrt(h_level) /2 +c(h_ouputs_agg, h_batch_y_agg)*np.sqrt(h_level) /2
-                                else:
-                                    h_loss = h_loss + c(h_outputs, h_batch_y)*np.sqrt(h_level) /2 +c(h_ouputs_agg, h_batch_y_agg)*np.sqrt(h_level) /2
-                            # outputs = 0
-
-
-                    else:
-                        loss = criterion(outputs, batch_y)
+                    loss = criterion(outputs, batch_y)
                     
                     train_loss.append(loss.item())
 
