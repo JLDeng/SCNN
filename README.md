@@ -21,13 +21,17 @@ bash ./scripts/long_term_forecast/ETT_script/SCNN_ETTh1.sh
 If you find this repo useful, please cite our paper.
 
 ```
-@article{deng2024disentangling,
-  title={Disentangling Structured Components: Towards Adaptive, Interpretable and Scalable Time Series Forecasting},
-  author={Deng, Jinliang and Chen, Xiusi and Jiang, Renhe and Yin, Du and Yang, Yi and Song, Xuan and Tsang, Ivor W},
-  journal={IEEE Transactions on Knowledge and Data Engineering},
+@ARTICLE{10457027,
+  author={Deng, Jinliang and Chen, Xiusi and Jiang, Renhe and Du Yin and Yang, Yi and Song, Xuan and Tsang, Ivor W.},
+  journal={IEEE Transactions on Knowledge and Data Engineering}, 
+  title={Disentangling Structured Components: Towards Adaptive, Interpretable and Scalable Time Series Forecasting}, 
   year={2024},
-  publisher={IEEE}
-}
+  volume={36},
+  number={8},
+  pages={3783-3800},
+  keywords={Time series analysis;Forecasting;Adaptation models;Convolution;Predictive models;Deep learning;Transformers;Deep learning;disentanglement;spatial-temporal data mining;time series forecasting},
+  doi={10.1109/TKDE.2024.3371931}}
+
 ```
 
 ## Contact
